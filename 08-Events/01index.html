@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Events </title>
+</head>
+<body style="background-color: #414141; color: aliceblue;">
+    <h2>Amazing image</h2>
+    <div >
+        <ul id="images">
+            <li><img width="200px" id="photoshop" src="https://images.pexels.com/photos/3561339/pexels-photo-3561339.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt="photoshop"></li>
+            <li><img width="200px" id="japan" src="https://images.pexels.com/photos/3532553/pexels-photo-3532553.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt=""></li>
+            <li><img width="200px" id="river" src="https://images.pexels.com/photos/3532551/pexels-photo-3532551.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt=""></li>
+            <li><img width="200px" id="owl" src="https://images.pexels.com/photos/3532552/pexels-photo-3532552.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt="" ></li>
+            <li><img width="200px" id="prayer" src="https://images.pexels.com/photos/2522671/pexels-photo-2522671.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt=""></li>
+            <li><a style="color: aliceblue;" href="https://google.com" id="google">Google</a></li>
+        </ul>
+   </div>
+</body>
+<script>
+    //1st approach
+    // onclick-there is no problem in this method but it provide less features in comparison to addeventlistener
+    //    document.getElementById('owl').onclick = function(){
+    //     alert('owl cicked')
+    //    }
+
+    // 2nd approach
+    // there is also a third parameter which is default false , so we dont write it 
+
+       document.getElementById('images').addEventListener('click' , function(e){
+        console.log("clicked inside the ul")
+       } , false)
+
+       document.getElementById('owl').addEventListener('click' , function(e){
+        console.log('owl clicked ')
+        console.log(e.target.tagName)
+        e.stopPropagation() // e.stoppropogation will basically stop the bubbling which means it will not go up and the clicked inside ul message will not get console.log
+       } , false)
+       document.getElementById('prayer').addEventListener('click' , function(e){
+       console.log('Prayer will not get removed ')
+       console.log(e.target.tagName)
+       e.stopPropagation() 
+       } , false)
+    
+       //bubbling and capturing
+       // capturing means top to bottom and bubbling is vice versa 
+       // these are the two concept 
+       // whenever we are clicking any image then it will give us clicked inside the ul 
+       // and when we click at the owl image specifically then first it will show us owl clicked and then the other message 
+       // its known as bubbling 
+       // now if we want to first display the message clicked inside the ul then we can change the third parameter of the addeventlistener which is default false 
+       // we can change it to true and then we will get the first message when we click owl image and then the second messqage 
+       // it basically depends on our use case that what we want 
+        
+     document.getElementById('google').addEventListener('click' , function(e){
+                // e.preventDefault()// prevent default will basically stop the navigation . means hum jab google k lind pe click krenge tab hum phir google pe ni jayenge
+
+                e.stopPropagation()
+                console.log("Google CLicked");
+     }, false)
+// we are basically removing the images that we click
+     document.querySelector('#images').addEventListener('click' , function(e){
+         console.log(e.target.tagName) // e.target will basically give us ki kis target se ye event occur ho rha hai
+// tagname is IMG for all the images 
+         if(e.target.tagName === 'IMG') {
+         let removeIt = e.target.parentNode
+         removeIt.remove()
+         }
+        // removeIt.parentNode.removeChild(removeIt) , this is the second method
+     } , false)
+       
+</script>
+</html>

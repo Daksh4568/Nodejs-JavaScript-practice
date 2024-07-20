@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Daksh Aur Code </h1>
+    <button id="stop">Stop</button>
+</body>
+<script>
+    const sayDaksh = function(){
+        console.log('Daksh')
+    }
+   const changeText = function(){
+     document.querySelector('h1').innerHTML = "Best JS Series"}
+    // set timeout means itni der ka time do phir uske baad execute hoga 
+    const changeMe = setTimeout(changeText , 8000);
+
+// we are basically using clear timeout with an event , whenever we click a stop button than the set timeout will get cancel
+  document.querySelector('#stop').addEventListener('click' , function(){
+    clearTimeout(changeMe)
+      console.log("Stopped");
+  })
+
+  
+</script> 
+</html>
